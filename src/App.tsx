@@ -1,35 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import { FileUploader } from './components/FileUploader';
+import { ResultDisplay } from './components/ResultDisplay';
+import { analyzeFile, type DetectionResult } from './utils/detector';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [result, setResult] = useState<DetectionResult | null>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+
+  const handleFile = async (file: File) => {
+    setSelectedFile(file);
+    setIsAnalyzing(true);
+    setResult(null);
+
+    try {
+      const analysis = await analyzeFile(file);
+      setResult(analysis);
+    } catch (error) {
+      console.error("Error analyzing file:", error);
+      alert("Something went wrong while reading the file.");
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="app-wrapper">
+      <header className="app-header">
+        <h1>File Sentinel</h1>
+        <p>Upload a file to verify its true format securely in your browser.</p>
+      </header>
+
+      <main className="app-main">
+        <FileUploader onFileSelect={handleFile} isLoading={isAnalyzing} />
+        
+        {isAnalyzing && <p className="loading-text">Analyzing bytes...</p>}
+        
+        {result && selectedFile && (
+          <ResultDisplay file={selectedFile} result={result} />
+        )}
+      </main>
+    </div>
+  );
 }
 
-export default App
+export default App;
