@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { FileUploader } from './components/FileUploader';
 import { ResultDisplay } from './components/ResultDisplay';
+import { InfoCard } from './components/InfoCard';
 import { analyzeFile, type DetectionResult } from './utils/detector';
 
 function App() {
@@ -28,7 +29,7 @@ function App() {
     <div className="app-wrapper">
       <header className="app-header">
         <h1>File Sentinel</h1>
-        <p>Upload a file to verify its true format securely in your browser.</p>
+        <p>Choose a file to verify its true format securely in your browser.</p>
       </header>
 
       <main className="app-main">
@@ -40,6 +41,9 @@ function App() {
           <ResultDisplay file={selectedFile} result={result} />
         )}
       </main>
+
+      <hr className="divider" />
+      <InfoCard /> 
     </div>
   );
 }

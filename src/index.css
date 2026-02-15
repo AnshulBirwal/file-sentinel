@@ -132,3 +132,57 @@ body {
   color: #6b7280;
   font-weight: 500;
 }
+
+/* info card */
+.divider {
+  border: 0;
+  height: 1px;
+  background-color: #e5e7eb;
+  margin: 2.5rem 0 1.5rem 0;
+}
+
+.info-card {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  color: #475569;
+  font-size: 0.9rem;
+}
+
+.info-card h3 {
+  color: #334155;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.info-card p {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.info-card p:last-of-type {
+  margin-bottom: 1rem;
+}
+
+.source-link-container {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.source-link {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.source-link:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
